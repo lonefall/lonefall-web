@@ -1,121 +1,189 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <title>LONEFALL | Official Press Kit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        oswald: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#252525',
+                        spotify: '#1DB954',
+                    },
+                    animation: {
+                        'fade-logo': 'fadeIn 2s forwards',
+                        'fade-social': 'fadeIn 2s 0.8s forwards',
+                        'scroll-bounce': 'scrollBounce 2s infinite ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        scrollBounce: {
+                            '0%, 100%': { transform: 'translateX(-50%) translateY(0)' },
+                            '50%': { transform: 'translateX(-50%) translateY(10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/css">
+        .bg-light-overlay {
+            background: radial-gradient(circle at center, #5a5a5a 0%, #111111 100%);
+        }
+        /* Utilitaires pour les flèches du scroll car trop spécifique pour tailwind pur */
+        .arrow-down span { display: block; width: 10px; height: 10px; border-bottom: 2px solid #fff; border-right: 2px solid #fff; transform: rotate(45deg); margin: -4px; }
+    </style>
 </head>
-<body>
+<body class="bg-dark text-white font-sans overflow-x-hidden">
 
-<div class="bg-light-overlay"></div>
-<canvas id="particleCanvas"></canvas>
+    <div class="bg-light-overlay fixed inset-0 -z-30"></div>
+    <canvas id="particleCanvas" class="fixed inset-0 -z-20 pointer-events-none"></canvas>
 
-<header class="hero">
-    <div class="video-background">
-        <iframe src="https://www.youtube.com/embed/LJBVtov-ypQ?autoplay=1&mute=1&controls=0&loop=1&playlist=LJBVtov-ypQ&showinfo=0&rel=0&modestbranding=1" 
-                frameborder="0" allow="autoplay; encrypted-media"></iframe>
-    </div>
-    <div class="hero-overlay"></div>
+    <header class="relative h-screen flex justify-center items-center overflow-hidden bg-black">
+        <div class="absolute inset-0 z-10 opacity-60 grayscale contrast-[1.3]">
+            <video autoplay muted loop playsinline class="w-full h-full object-cover">
+                <source src="background-video.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <div class="absolute inset-0 z-20 bg-gradient-to-b from-transparent via-transparent to-dark"></div>
 
-    <div class="hero-content">
-        <div class="logos">
-            <img src="logo.png" alt="Logo LONEFALL" class="logo-main fade-in-logo">
-            <h1 class="group-name fade-in-logo">LONEFALL</h1>
-            <p class="hero-tagline fade-in-social">MODERN METALCORE / MONTPELLIER</p>
+        <div class="relative z-30 text-center px-4">
+            <div class="flex flex-col items-center">
+                <img src="logo.png" alt="Logo LONEFALL" class="w-4/5 max-w-[500px] mb-5 animate-fade-logo">
+                
+                <img src="lonefall_logo.png" alt="LONEFALL" class="w-11/12 max-w-[600px] mb-5 animate-fade-logo invert brightness-200">
+                
+                <p class="font-oswald tracking-[4px] md:tracking-[8px] text-xs md:text-sm text-gray-400 mb-8 animate-fade-social uppercase">
+                    MODERN METALCORE / MONTPELLIER
+                </p>
+                
+                <div class="flex gap-4 md:gap-8 text-2xl md:text-3xl animate-fade-social">
+                    <a href="#" target="_blank" class="opacity-60 hover:opacity-100 hover:scale-125 transition-all hover:text-spotify"><i class="fa-brands fa-spotify"></i></a>
+                    <a href="https://instagram.com/lonefall" target="_blank" class="opacity-60 hover:opacity-100 hover:scale-125 transition-all hover:text-[#E1306C]"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@Lonefall_fr" target="_blank" class="opacity-60 hover:opacity-100 hover:scale-125 transition-all hover:text-red-600"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https://www.tiktok.com/@lonefall_fr" target="_blank" class="opacity-60 hover:opacity-100 hover:scale-125 transition-all hover:text-[#ff0050]"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/lonefall.fr/" target="_blank" class="opacity-60 hover:opacity-100 hover:scale-125 transition-all hover:text-[#1877F2]"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="mailto:lonefall.fr@gmail.com" class="opacity-60 hover:opacity-100 hover:scale-125 transition-all"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <a href="#content" class="animate-scroll-bounce absolute bottom-10 left-1/2 flex flex-col items-center no-underline text-gray-300 opacity-50 hover:opacity-100 transition-opacity z-40">
+            <span class="text-[0.7rem] tracking-[5px] mb-2 font-oswald uppercase">SCROLL</span>
+            <div class="arrow-down"><span></span><span></span></div>
+        </a>
+    </header>
+
+    <main id="content" class="space-y-24 py-20 px-4 max-w-6xl mx-auto">
+        
+        <section>
+            <div class="relative pb-[56.25%] bg-black border border-white/10 shadow-2xl">
+                <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/LJBVtov-ypQ" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="max-w-3xl mx-auto text-center">
+            <div class="mb-16">
+                <p class="text-xs tracking-widest text-gray-400 font-oswald mb-2 uppercase">Dernier Single</p>
+                <h2 class="font-oswald text-5xl md:text-7xl mb-6">BURDENS</h2>
+                <div class="shadow-2xl mb-12">
+                    <iframe src="https://open.spotify.com/embed/track/3clBWJXJ9YnKjVLAii8Sic?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <p class="text-xs tracking-widest text-gray-400 font-oswald mb-2 uppercase">Premier Single</p>
+                <h2 class="font-oswald text-5xl md:text-7xl mb-6">TO WANDER UNCHAINED</h2>
+                <div class="shadow-2xl mb-10">
+                    <iframe src="https://open.spotify.com/embed/track/5KAvFCYa0PZRlYRiFlWtTA?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-center gap-4 mt-10">
+                    <a href="#" class="px-10 py-4 border-2 border-white bg-white text-black font-oswald font-bold tracking-widest hover:bg-transparent hover:text-white transition-all">
+                        <i class="fa-brands fa-spotify mr-2"></i> ÉCOUTER SUR SPOTIFY
+                    </a>
+                    <a href="mailto:lonefall.fr@gmail.com" class="px-10 py-4 border-2 border-white text-white font-oswald font-bold tracking-widest hover:bg-white hover:text-black transition-all">
+                        CONTACT MANAGEMENT
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="text-center">
+            <img src="photo-groupe.jpg" alt="LONEFALL" class="w-full brightness-75 hover:brightness-100 transition-all duration-700 border border-white/10 shadow-2xl mb-10">
             
-            <div class="social-links fade-in-social">
-                <a href="http://googleusercontent.com/spotify.com/7" target="_blank" title="Spotify"><i class="fa-brands fa-spotify"></i></a>
-                <a href="https://instagram.com/lonefall" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://www.youtube.com/@Lonefall_fr" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://www.tiktok.com/@lonefall_fr" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="https://www.facebook.com/lonefall.fr/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="mailto:lonefall.fr@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+            <div class="max-w-2xl mx-auto text-lg md:text-xl text-gray-300 leading-relaxed mb-12">
+                <p class="mb-4">Originaire de Montpellier, LONEFALL est un quintet de metalcore moderne alliant puissance brute et atmosphères immersives.</p>
+                <p>Le groupe forge une identité sonore singulière en intégrant des <strong class="text-white">instruments traditionnels japonais</strong>.</p>
             </div>
-        </div>
-    </div>
 
-    <a href="#content" class="scroll-indicator">
-        <span>SCROLL</span>
-        <div class="arrow-down"><span></span><span></span></div>
-    </a>
-</header>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 pt-10 border-t border-white/10">
+                <div class="font-oswald uppercase">
+                    <span class="block text-[0.7rem] text-gray-500 tracking-widest">Guitare</span> Raphael Lava
+                </div>
+                <div class="font-oswald uppercase">
+                    <span class="block text-[0.7rem] text-gray-500 tracking-widest">Basse</span> Mathieu Boyer
+                </div>
+                <div class="font-oswald uppercase">
+                    <span class="block text-[0.7rem] text-gray-500 tracking-widest">Chant</span> Kyle Michaux
+                </div>
+                <div class="font-oswald uppercase">
+                    <span class="block text-[0.7rem] text-gray-500 tracking-widest">Guitare</span> Vincent Feger
+                </div>
+                <div class="font-oswald uppercase">
+                    <span class="block text-[0.7rem] text-gray-500 tracking-widest">Batterie</span> Benjamin Privat
+                </div>
+            </div>
+        </section>
 
-<main id="content">
-    <section class="video-section">
-        <div class="container">
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/LJBVtov-ypQ" frameborder="0" allowfullscreen></iframe>
+        <section>
+            <h2 class="text-center font-oswald text-4xl mb-10 tracking-widest uppercase">Photos</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+                <div class="aspect-[2/3] overflow-hidden border border-white/10 shadow-lg group">
+                    <img src="photo1.jpg" class="w-full h-full object-cover brightness-[0.85] group-hover:brightness-110 group-hover:scale-105 transition-all duration-500" alt="Photo 1">
+                </div>
+                <div class="aspect-[2/3] overflow-hidden border border-white/10 shadow-lg group">
+                    <img src="photo2.jpg" class="w-full h-full object-cover brightness-[0.85] group-hover:brightness-110 group-hover:scale-105 transition-all duration-500" alt="Photo 2">
+                </div>
+                <div class="aspect-[2/3] overflow-hidden border border-white/10 shadow-lg group">
+                    <img src="photo3.jpg" class="w-full h-full object-cover brightness-[0.85] group-hover:brightness-110 group-hover:scale-105 transition-all duration-500" alt="Photo 3">
+                </div>
+                <div class="aspect-[2/3] overflow-hidden border border-white/10 shadow-lg group">
+                    <img src="photo4.jpg" class="w-full h-full object-cover brightness-[0.85] group-hover:brightness-110 group-hover:scale-105 transition-all duration-500" alt="Photo 4">
+                </div>
+                <div class="aspect-[2/3] overflow-hidden border border-white/10 shadow-lg group">
+                    <img src="photo5.jpg" class="w-full h-full object-cover brightness-[0.85] group-hover:brightness-110 group-hover:scale-105 transition-all duration-500" alt="Photo 5">
+                </div>
+                <div class="aspect-[2/3] overflow-hidden border border-white/10 shadow-lg group">
+                    <img src="photo6.jpg" class="w-full h-full object-cover brightness-[0.85] group-hover:brightness-110 group-hover:scale-105 transition-all duration-500" alt="Photo 6">
+                </div>
             </div>
-        </div>
-    </section>
-
-    <section class="single">
-        <div class="container">
-            <p class="release">DERNIER SINGLE</p>
-            <h1 class="single-title">BURDENS</h1>
-            <div class="spotify-embed">
-                <iframe src="https://open.spotify.com/embed/track/3clBWJXJ9YnKjVLAii8Sic?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            </div>
-             <p class="release">PREMIER SINGLE</p>
-            <h1 class="single-title">TO WANDER UNCHAINED</h1>
-            <div class="spotify-embed">
-                <iframe src="https://open.spotify.com/embed/track/5KAvFCYa0PZRlYRiFlWtTA?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            </div>
-            <div class="buttons">
-                <a href="https://open.spotify.com/intl-fr/artist/6rPPUVztpGPFP0CEsBxlQ5" target="_blank" class="btn primary">
-                    <i class="fa-brands fa-spotify"></i> ÉCOUTER SUR SPOTIFY
+            <div class="text-center">
+                <a href="presskit_lonefall.zip" download class="px-10 py-4 border-2 border-white bg-white text-black font-oswald font-bold tracking-widest hover:bg-transparent hover:text-white transition-all">
+                    DOWNLOAD PRESS KIT
                 </a>
-                <a href="mailto:lonefall.fr@gmail.com" class="btn">CONTACT MANAGEMENT</a>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <section class="about">
-        <div class="container">
-            <div class="group-photo-wrapper">
-                <img src="photo-groupe.jpg" alt="LONEFALL" class="group-photo">
-            </div>
-            <div class="bio-text">
-                <p>Originaire de Montpellier, LONEFALL est un quintet de metalcore moderne alliant puissance brute et atmosphères immersives.</p>
-                <p>Le groupe forge une identité sonore singulière en intégrant des <strong>instruments traditionnels japonais</strong>.</p>
-            </div>
-            <div class="line-up">
-                <div class="member"><span>Guitare</span> Raphael Lava</div>
-                <div class="member"><span>Basse</span> Mathieu Boyer</div>
-                <div class="member"><span>Chant</span> Kyle Michaux</div>
-                <div class="member"><span>Guitare</span> Vincent Feger</div>
-                <div class="member"><span>Batterie</span> Benjamin Privat</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="gallery">
-        <div class="container">
-            <h2>PHOTOS</h2>
-            <div class="photo-flex-grid">
-                <div class="photo-card"><img src="photo1.jpg" alt="Photo 1"></div>
-                <div class="photo-card"><img src="photo2.jpg" alt="Photo 2"></div>
-                <div class="photo-card"><img src="photo3.jpg" alt="Photo 3"></div>
-                <div class="photo-card"><img src="photo4.jpg" alt="Photo 4"></div>
-                <div class="photo-card"><img src="photo5.jpg" alt="Photo 5"></div>
-                <div class="photo-card"><img src="photo6.jpg" alt="Photo 6"></div>
-            </div>
-            <div class="gallery-footer">
-                <a href="presskit_lonefall.zip" download class="btn primary">DOWNLOAD PRESS KIT</a>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
+    <footer class="py-12 border-t border-white/10 text-center text-xs text-gray-500 uppercase tracking-widest">
         <p>© 2026 Lonefall. Tous droits réservés.</p>
-    </div>
-</footer>
+    </footer>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
